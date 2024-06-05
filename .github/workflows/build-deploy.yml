@@ -104,11 +104,10 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Check IP 
-          run: echo "${{ env.UAT_IP }}"
+        run: echo "${{ env.UAT_IP }}"
 
       - uses: actions/setup-node@v3
         with:
-          with:
           host: ${{ env.UAT_IP }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
