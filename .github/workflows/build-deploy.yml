@@ -14,22 +14,7 @@ env:
   UAT_PORT: 22
 
 jobs:
-  check_env: 
-    runs-on: ubuntu-latest
-    environment: UAT
-    
-    steps: 
-     - name: print IP address
-       run: echo "${{ env.UAT_IP }}"
-       
-     - name: lookup if $UAT_IP is accessible
-       uses: appleboy/ssh-action@master
-       with:
-         host: ${{ env.UAT_IP }}
-         username: ${{ secrets.USER }}
-         key: ${{ secrets.SSH_KEY }}
-         port: ${{ env.UAT_PORT }}
-    
+
   build_and_test_and_deploy:
     needs: [check_env]
     environment: UAT
@@ -54,6 +39,7 @@ jobs:
       - name: rename Artefakt
         run: mv ./target/*digitalbank*.war ./target/digibank.war
 
+      
       - uses: actions/upload-artifact@master
         with:
           name: digibank.war
@@ -78,6 +64,23 @@ jobs:
           source: './target/digibank.war'
           target: 'deployment'
 
+  check_env: 
+    runs-on: ubuntu-latest
+    environment: UAT
+    
+    steps: 
+     - name: print IP address
+       run: echo "${{ env.UAT_IP }}"
+       
+     - name: lookup if $UAT_IP is accessible
+       uses: appleboy/ssh-action@master
+       with:
+         host: ${{ env.UAT_IP }}
+         username: ${{ secrets.USER }}
+         key: ${{ secrets.SSH_KEY }}
+         port: ${{ env.UAT_PORT }}
+    
+  
     ### Install STEP ###
   install:
     needs: [build_and_test_and_deploy]
