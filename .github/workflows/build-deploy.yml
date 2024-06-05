@@ -16,7 +16,6 @@ env:
 jobs:
 
   build_and_test_and_deploy:
-    needs: [check_env]
     environment: UAT
     name: Build and run Unit Tests
     runs-on: ubuntu-latest
@@ -100,7 +99,7 @@ jobs:
 
   e2e_tests:
      needs: [install]
-     name: "Run end-2-end tests for the ip ${{ env.UAT_IP }}"
+     name: "Run end-2-end tests for the given ip"
      runs-on: ubuntu-latest
         
      steps:
