@@ -102,9 +102,10 @@ jobs:
         
      steps:
       - uses: actions/checkout@v3
-        
-      - name: Check IP
-        run: echo "${{ env.UAT_IP }}"
+        with:
+        host: ${{ env.UAT_IP }}
+      - name: Check IP 
+          run: echo ""
 
       - uses: actions/setup-node@v3
         with:
