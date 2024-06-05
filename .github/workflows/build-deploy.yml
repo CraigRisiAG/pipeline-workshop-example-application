@@ -20,7 +20,7 @@ jobs:
     
     steps: 
      - name: print IP address
-       run: echo ${{ env.UAT_IP }}
+       run: echo "${{ env.UAT_IP }}"
        
      - name: lookup if $UAT_IP is accessible
        uses: appleboy/ssh-action@master
